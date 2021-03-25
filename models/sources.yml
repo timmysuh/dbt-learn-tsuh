@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: jaffle shop fun stuff 
+    database: raw
+    tables:
+      - name: customers
+        description: raw customers table
+      - name: orders
+        description: raw orders table
+
+  - name: stripe
+    database: raw
+    tables:
+      - name: payment   
+        loaded_at_field: _batched_at
+        freshness:
+          warn_after: {count: 1, period: day}
+          error_after: {count: 2, period: day}

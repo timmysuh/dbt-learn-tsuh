@@ -21,6 +21,9 @@ models:
           - unique
           - not_null
 
+  - name: stg_payments
+    description: This model has payment
+
   - name: stg_orders
     description: This model cleans up order data
     columns:
@@ -39,3 +42,11 @@ models:
           - relationships:
               to: ref('stg_customers')
               field: customer_id
+
+  - name: orders
+    description: "{{ doc('orders_payment') }}"
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - customer_id
+            - order_id
